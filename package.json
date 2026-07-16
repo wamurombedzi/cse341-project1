@@ -12,12 +12,13 @@
   },
   "license": "ISC",
   "author": "Wadzanai Murombedzi",
-  "type": "commonjs",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "express": "^5.2.1"
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "mongodb": "^7.5.0"
   }
 }
