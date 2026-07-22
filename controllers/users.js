@@ -2,6 +2,7 @@ const mongodb = require('../data/database');
 const ObjectId = require('mongodb').ObjectId;
 
 const getAll = async (req, res) => {
+  //#swagger.tags=['users]
   const result = await mongodb.getDatabase().db('project1').collection('users').find();
   result.toArray().then((users) => {
     res.setHeader('Content-Type', 'application/json');
@@ -10,6 +11,7 @@ const getAll = async (req, res) => {
 };
 
 const getSingle = async (req, res) => {
+  //#swagger.tags=['users]
   const userId = new ObjectId(req.params.id);
   const result = await mongodb.getDatabase().db('project1').collection('users').find({_id: userId});
   result.toArray().then((users) => {
@@ -19,13 +21,12 @@ const getSingle = async (req, res) => {
 };
 
 const createUser = async (req, res) => {
-  const userId = new ObjectId(req.paramd.is);
+  //#swagger.tags=['users]
   const user = {
-    firstName: req.body.firstname,
-    lastName: req.body.lastname,
     email: req.body.email,
-    favoritecolor: req.body.favoritecolor,
-    birthday: req.body.birthday
+    username: req.body.username,
+    name: req.body.name,
+    ipaddress: req.body.ipaddress
   };
   const response = await mongodb.getDatabase().db().collection('users').replaceOne(user);
   if (response.modifiedCount > 0) {
@@ -36,6 +37,7 @@ const createUser = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
+  //#swagger.tags=['users]
   const userId = new ObjectId(req.params.is);
   const user = {
     username: req.body.username,
@@ -52,6 +54,7 @@ const updateUser = async (req, res) => {
 };
 
 const deleteUser = async (req, res) => {
+  //#swagger.tags=['users]
   const userId = new ObjectId(req.params.is);
   const response = await mongodb.getDatabase().db().collection('users').deleteOne({_id: userId}, true);
   if (response.deleteCount > 0) {
@@ -60,7 +63,6 @@ const deleteUser = async (req, res) => {
   res.status(500).json(response.error || 'Some error occurred while updating the user.');
  }
 };
-
 
 module.exports = {
   getAll,
