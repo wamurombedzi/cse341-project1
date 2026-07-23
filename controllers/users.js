@@ -28,8 +28,8 @@ const createUser = async (req, res) => {
     name: req.body.name,
     ipaddress: req.body.ipaddress
   };
-  const response = await mongodb.getDatabase().db().collection('users').replaceOne(user);
-  if (response.modifiedCount > 0) {
+  const response = await mongodb.getDatabase().db().collection('users').insertOne(user);
+  if (response.acknowledged) {
     res.stautus(204).send();
  } else {
   res.status(500).json(response.error || 'Some error occurred while updating the user.');
@@ -56,8 +56,8 @@ const updateUser = async (req, res) => {
 const deleteUser = async (req, res) => {
   //#swagger.tags=['users]
   const userId = new ObjectId(req.params.is);
-  const response = await mongodb.getDatabase().db().collection('users').deleteOne({_id: userId}, true);
-  if (response.deleteCount > 0) {
+  const response = await mongodb.getDatabase().db().collection('users').deleteOne({_id: userId});
+  if (response.deletedCount > 0) {
     res.status(204).send();
  } else {
   res.status(500).json(response.error || 'Some error occurred while updating the user.');
