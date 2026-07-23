@@ -28,7 +28,7 @@ const createUser = async (req, res) => {
     name: req.body.name,
     ipaddress: req.body.ipaddress
   };
-  const response = await mongodb.getDatabase().db('project1').collection('users').insertOne(user);
+  const response = await mongodb.getDatabase().db().collection('users').insertOne(user);
   if (response.acknowledged) {
     res.stautus(204).send();
  } else {
@@ -40,8 +40,8 @@ const updateUser = async (req, res) => {
   //#swagger.tags=['users]
   const userId = new ObjectId(req.params.is);
   const user = {
-    username: req.body.username,
     email: req.body.email,
+    username: req.body.username,
     name: req.body.name,
     ipaddress: req.body.ipaddress
   };
