@@ -28,7 +28,7 @@ const createUser = async (req, res) => {
     name: req.body.name,
     ipaddress: req.body.ipaddress
   };
-  const response = await mongodb.getDatabase().db().collection('users').insertOne(user);
+  const response = await mongodb.getDatabase().db('project1').collection('users').insertOne(user);
   if (response.acknowledged) {
     res.stautus(204).send();
  } else {
@@ -56,7 +56,7 @@ const updateUser = async (req, res) => {
 const deleteUser = async (req, res) => {
   //#swagger.tags=['users]
   const userId = new ObjectId(req.params.is);
-  const response = await mongodb.getDatabase().db().collection('users').deleteOne({_id: userId});
+  const response = await mongodb.getDatabase().db('project1').collection('users').deleteOne({_id: userId});
   if (response.deletedCount > 0) {
     res.status(204).send();
  } else {
